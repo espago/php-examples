@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src='https://js.espago.com/espago-1.2.js' type='text/javascript'></script>
+    <script>
+    $(document).ready(function(){
+      $("#company-form").submit(function(event){
+        var espago = new Espago({public_key: 'ChangeThisPublicKey:', custom: true, live: false, form: "#company-form",
+          card_number: "#CompanyForm_card_number", first_name: "#CompanyForm_card_name", last_name: "#CompanyForm_card_surname", month: "#CompanyForm_expires_month", year: "#CompanyForm_expires_year", cvc: "#CompanyForm_security_code",
+          error:function(){
+              alert('Connection Error');
+              return false;
+          }
+        });
+        event.preventDefault();
+
+  if (espago.validate_card_number()){
+          ///obsługa komunikatów wyniku walidacji numeru karty
+          $("#CompanyForm_card_number_error").text("");
+         } else {
+          $("#CompanyForm_card_number_error").text("Incorrect card number.");
+         };
+  if (espago.validate_card_date()){
+          ///obsługa komunikatów wyniku walidacji roku waznosci karty
+          $("#CompanyForm_expires_year_error").text("");
+         } else {
+          $("#CompanyForm_expires_year_error").text("Incorrect expired time.");
+         };
+        if (espago.validate_card_cvc()){
+          ///obsługa komunikatów wyniku walidacji wartości CVC
+          $("#CompanyForm_security_code_error").text("");
+        } else {
+          $("#CompanyForm_security_code_error").text("Incorrect CVV/CVC format.");
+        };
+
+        espago.create_token();
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <form id='company-form' method='POST' action='espago_new_transaction.php'>
+      <label>Numer karty</label>
+      <input id='CompanyForm_card_number' type='text' value='4242424242424242'/>
+      <span id='CompanyForm_card_number_error'></span>
+      <br />
+      <label>Imię</label>
+      <input id='CompanyForm_card_name' type='text' value='Jan'>
+      <br />
+      <label>Nazwisko</label>
+      <input id='CompanyForm_card_surname' type='text' value='Kowalski'/>
+      <br />
+      <label>Miesiąc</label>
+      <input id='CompanyForm_expires_month' type='text' value='03'/>
+      <br />
+      <label>Rok</label>
+      <input id='CompanyForm_expires_year' type='text' value='2019'/>
+      <span id='CompanyForm_expires_year_error'></span>
+      <br />
+      <label>CVV</label>
+      <input id='CompanyForm_security_code' type='text' value='123'/>
+      <span id='CompanyForm_security_code_error'></span>
+      <br />
+      <input id='button' type='submit' value='Go'/>
+    </form>
+  </body>
+</html>
