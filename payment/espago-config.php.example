@@ -1,0 +1,19 @@
+<?php
+//Config file for communication with espago
+
+// Espago address and path
+$espago_gateway = 'https://sandbox.espago.com'; //URL of test gateway
+$espago_gateway_path = '/api/charges'; //path to API charges
+
+// Service details
+$espago_app_id = 'ms_xxxxxxxxx';			//Use application ID read from web panel
+$espago_password_api = 'Password';	//Use Password API set in web panel
+$espago_currency = 'EUR';			//Use currency you've read from panel: eur, pln, usd etc.
+
+// API version
+$headers = array('Accept: application/vnd.espago.v3+json');
+
+// email address for test notifications about status of payment
+$email_notification = 'test-espago@example.com'
+
+?>
