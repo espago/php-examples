@@ -10,7 +10,7 @@
 
 //Initial parameters from Espago panel:
 
-/** Loads the WordPress Environment and Template */
+/** Loads the config file */
 require( dirname( __FILE__ ) . '/espago-config.php' );
 
 //error codes in XML, you can use EN, PL or FR language
